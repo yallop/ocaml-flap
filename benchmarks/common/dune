@@ -1,0 +1,5 @@
+(library
+ (name benchmarks_common)
+ (modules Test_int_exp Leex)
+ (flags (:standard "-open" "Codelib"))
+ (libraries asp reex reex_match))

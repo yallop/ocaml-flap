@@ -1,0 +1,7 @@
+(library
+ (public_name flap)
+ (libraries letrec reex reex_match metaocaml)
+ (modules Env Code Normal Compiler Fused Normalize Recognizer Flap)
+ (flags (:standard "-open" "Codelib"))
+ (preprocess (pps ppx_deriving.std))
+ (synopsis "Fused lexing and parsing"))

@@ -1,0 +1,42 @@
+name: MetaOCaml
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  install:
+    name: Install
+    runs-on: ${{ matrix.os }}
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        ocaml-compiler: ["ocaml-variants.4.11.1+BER"]
+        os: [ubuntu-latest]
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use OCaml ${{ matrix.ocaml-compiler }}
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+          opam-repositories: |
+            default: https://github.com/ocaml/opam-repository.git
+            metaocaml: https://github.com/metaocaml/metaocaml-opam.git
+            beta: https://github.com/ocaml/ocaml-beta-repository.git
+
+      - name: Deps
+        run: |
+          opam install --yes ocamlfind
+          opam pin add core_kernel https://github.com/yallop/core_kernel.git#pedantic-patch
+          opam pin add core_bench https://github.com/yallop/core_bench.git#ber-metaocaml
+          opam pin add reex_match https://github.com/yallop/ocaml-reex.git
+          opam install --yes ounit
+
+      - name: Build
+        run: |
+          opam exec -- make
+
+      - name: Test
+        run: |
+          opam exec -- make test
