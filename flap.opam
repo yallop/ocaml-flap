@@ -19,5 +19,8 @@ depends: [
    "ppx_deriving"
 
    "ounit" {with-test}
+
+  "ocaml-variants"
+    {= "4.11.1+BER" | = "4.11.1+BER+flambda" | = "4.14.1+BER"}
 ]
-available: [ compiler = "4.11.1+BER"]
+
