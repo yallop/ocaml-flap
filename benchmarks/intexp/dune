@@ -1,0 +1,26 @@
+(executable
+ (name intexp_benchmark)
+ (modules Intexp_lexer Intexp_lexer_menhir_code Intexp_lexer_menhir_table
+          Intexp_normalized_lexer Intexp_normalized_lexer_menhir_code Intexp_normalized_lexer_menhir_table
+          Intexp_parser Intexp_parser_menhir_code Intexp_parser_menhir_table
+          Intexp_normalized_parser Intexp_normalized_parser_menhir_code Intexp_normalized_parser_menhir_table
+          Intexp_hand_normalized_parser Intexp_hand_normalized_lexer
+          Intexp_unstaged_combinator_parser Intexp_staged_combinator_parser Intexp_tokens_base Intexp_tokens Intexp_tokens Intexp_benchmark)
+ (flags (:standard "-open" "Codelib"))
+ (ocamlopt_flags (:standard "-O3"))
+ (libraries dynlink metaocaml asp flap benchmarks_common intexp_grammar core_bench menhirLib))
+
+(ocamlyacc intexp_parser)
+(menhir
+ (modules intexp_parser_menhir_code))
+(menhir
+ (modules intexp_parser_menhir_table)
+ (flags "--table"))
+(ocamlyacc intexp_normalized_parser)
+(menhir
+ (modules intexp_normalized_parser_menhir_code))
+(menhir
+ (modules intexp_normalized_parser_menhir_table)
+ (flags "--table"))
+(ocamllex intexp_lexer intexp_lexer_menhir_code intexp_lexer_menhir_table
+ intexp_normalized_lexer intexp_normalized_lexer_menhir_code intexp_normalized_lexer_menhir_table)

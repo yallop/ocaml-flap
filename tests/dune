@@ -1,0 +1,5 @@
+(test
+ (name test)
+ (modes native)
+ (preprocess (pps ppx_deriving.std))
+ (libraries dynlink metaocaml compiler-libs.optcomp ounit2 flap sexp_grammar pgn_grammar ppm_grammar json_grammar csv_grammar intexp_grammar))

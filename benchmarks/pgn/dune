@@ -1,0 +1,26 @@
+(executable
+ (name pgn_benchmark)
+ (modules Pgn_lexer Pgn_lexer_menhir_code Pgn_lexer_menhir_table
+          Pgn_normalized_lexer Pgn_normalized_lexer_menhir_code Pgn_normalized_lexer_menhir_table
+          Pgn_parser Pgn_parser_menhir_code Pgn_parser_menhir_table
+          Pgn_normalized_parser Pgn_normalized_parser_menhir_code Pgn_normalized_parser_menhir_table
+          Pgn_hand_normalized_parser Pgn_hand_normalized_lexer
+          Pgn_unstaged_combinator_parser Pgn_staged_combinator_parser Pgn_tokens_base Pgn_tokens Pgn_tokens Pgn_benchmark)
+ (flags (:standard "-open" "Codelib"))
+ (ocamlopt_flags (:standard "-O3"))
+ (libraries dynlink metaocaml asp flap pgn_grammar benchmarks_common core_bench menhirLib))
+
+(ocamlyacc pgn_parser)
+(menhir
+ (modules pgn_parser_menhir_code))
+(menhir
+ (modules pgn_parser_menhir_table)
+ (flags "--table"))
+(ocamlyacc pgn_normalized_parser)
+(menhir
+ (modules pgn_normalized_parser_menhir_code))
+(menhir
+ (modules pgn_normalized_parser_menhir_table)
+ (flags "--table"))
+(ocamllex pgn_lexer pgn_lexer_menhir_code pgn_lexer_menhir_table
+ pgn_normalized_lexer pgn_normalized_lexer_menhir_code pgn_normalized_lexer_menhir_table)

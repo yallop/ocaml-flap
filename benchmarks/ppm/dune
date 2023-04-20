@@ -1,0 +1,26 @@
+(executable
+ (name ppm_benchmark)
+ (modules Ppm_lexer Ppm_lexer_menhir_code Ppm_lexer_menhir_table
+          Ppm_normalized_lexer Ppm_normalized_lexer_menhir_code Ppm_normalized_lexer_menhir_table
+          Ppm_parser Ppm_parser_menhir_code Ppm_parser_menhir_table
+          Ppm_normalized_parser Ppm_normalized_parser_menhir_code Ppm_normalized_parser_menhir_table
+          Ppm_hand_normalized_parser Ppm_hand_normalized_lexer
+          Ppm_unstaged_combinator_parser Ppm_staged_combinator_parser Ppm_tokens_base Ppm_tokens Ppm_tokens Ppm_benchmark)
+ (flags (:standard "-open" "Codelib"))
+ (ocamlopt_flags (:standard "-O3"))
+ (libraries dynlink metaocaml asp flap ppm_grammar benchmarks_common core_bench menhirLib))
+
+(ocamlyacc ppm_parser)
+(menhir
+ (modules ppm_parser_menhir_code))
+(menhir
+ (modules ppm_parser_menhir_table)
+ (flags "--table"))
+(ocamlyacc ppm_normalized_parser)
+(menhir
+ (modules ppm_normalized_parser_menhir_code))
+(menhir
+ (modules ppm_normalized_parser_menhir_table)
+ (flags "--table"))
+(ocamllex ppm_lexer ppm_lexer_menhir_code ppm_lexer_menhir_table
+ppm_normalized_lexer ppm_normalized_lexer_menhir_code ppm_normalized_lexer_menhir_table)

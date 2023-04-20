@@ -1,0 +1,55 @@
+(library
+ (name grammars_common)
+ (libraries flap)
+ (modules Grammars_common)
+ (flags (:standard "-open" "Codelib"))
+ (preprocess (pps ppx_deriving.std))
+ (synopsis "Flap example grammars: common code"))
+
+(library
+ (name csv_grammar)
+ (libraries flap grammars_common)
+ (modules Csv_grammar)
+ (flags (:standard "-open" "Codelib"))
+ (preprocess (pps ppx_deriving.std))
+ (synopsis "Flap example grammars: csv"))
+
+(library
+ (name json_grammar)
+ (libraries flap grammars_common)
+ (modules Json_grammar)
+ (flags (:standard "-open" "Codelib"))
+ (preprocess (pps ppx_deriving.std))
+ (synopsis "Flap example grammars: json"))
+
+(library
+ (name intexp_grammar)
+ (libraries flap grammars_common)
+ (modules Intexp_grammar)
+ (flags (:standard "-open" "Codelib"))
+ (preprocess (pps ppx_deriving.std))
+ (synopsis "Flap example grammars: intexp"))
+
+(library
+ (name pgn_grammar)
+ (libraries flap grammars_common)
+ (modules Pgn_grammar)
+ (flags (:standard "-open" "Codelib"))
+ (preprocess (pps ppx_deriving.std))
+ (synopsis "Flap example grammars: pgn"))
+
+(library
+ (name ppm_grammar)
+ (libraries flap grammars_common)
+ (modules Ppm_grammar)
+ (flags (:standard "-open" "Codelib"))
+ (preprocess (pps ppx_deriving.std))
+ (synopsis "Flap example grammars: ppm"))
+
+(library
+ (name sexp_grammar)
+ (libraries flap grammars_common)
+ (modules Sexp_grammar)
+ (flags (:standard "-open" "Codelib"))
+ (preprocess (pps ppx_deriving.std))
+ (synopsis "Flap example grammars: sexp"))

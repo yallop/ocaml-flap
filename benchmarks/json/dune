@@ -1,0 +1,27 @@
+(executable
+ (name json_benchmark)
+ (modules Json_lexer Json_lexer_menhir_code Json_lexer_menhir_table
+          Json_normalized_lexer Json_normalized_lexer_menhir_code Json_normalized_lexer_menhir_table
+          Json_hand_normalized_lexer Json_hand_normalized_parser
+          Json_parser Json_parser_menhir_code Json_parser_menhir_table
+          Json_normalized_parser Json_normalized_parser_menhir_code Json_normalized_parser_menhir_table
+          Json_parts
+          Json_unstaged_combinator_parser Json_staged_combinator_parser Json_tokens_base Json_tokens Json_tokens Json_benchmark)
+ (flags (:standard "-open" "Codelib"))
+ (ocamlopt_flags (:standard "-O3"))
+ (libraries dynlink metaocaml asp flap json_grammar benchmarks_common core_bench menhirLib))
+
+(ocamlyacc json_parser)
+(menhir
+ (modules json_parser_menhir_code))
+(menhir
+ (modules json_parser_menhir_table)
+ (flags "--table"))
+(ocamlyacc json_normalized_parser)
+(menhir
+ (modules json_normalized_parser_menhir_code))
+(menhir
+ (modules json_normalized_parser_menhir_table)
+ (flags "--table"))
+(ocamllex json_lexer json_lexer_menhir_code json_lexer_menhir_table
+ json_normalized_lexer json_normalized_lexer_menhir_code json_normalized_lexer_menhir_table)

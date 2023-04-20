@@ -1,0 +1,26 @@
+(executable
+ (name csv_benchmark)
+ (modules Csv_lexer Csv_lexer_menhir_code Csv_lexer_menhir_table
+          Csv_normalized_lexer Csv_normalized_lexer_menhir_code Csv_normalized_lexer_menhir_table
+          Csv_parser Csv_parser_menhir_code Csv_parser_menhir_table
+          Csv_normalized_parser Csv_normalized_parser_menhir_code Csv_normalized_parser_menhir_table
+          Csv_hand_normalized_parser Csv_hand_normalized_lexer
+          Csv_staged_combinator_parser Csv_tokens_base Csv_tokens Csv_tokens Csv_benchmark)
+ (flags (:standard "-open" "Codelib"))
+ (ocamlopt_flags (:standard "-O3"))
+ (libraries dynlink metaocaml asp flap benchmarks_common csv_grammar core_bench menhirLib))
+
+(ocamlyacc csv_parser)
+(menhir
+ (modules csv_parser_menhir_code))
+(menhir
+ (modules csv_parser_menhir_table)
+ (flags "--table"))
+(ocamlyacc csv_normalized_parser)
+(menhir
+ (modules csv_normalized_parser_menhir_code))
+(menhir
+ (modules csv_normalized_parser_menhir_table)
+ (flags "--table"))
+(ocamllex csv_lexer csv_lexer_menhir_code csv_lexer_menhir_table
+ csv_normalized_lexer csv_normalized_lexer_menhir_code csv_normalized_lexer_menhir_table)

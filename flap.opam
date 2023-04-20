@@ -1,0 +1,25 @@
+opam-version: "2.0"
+name: "flap"
+synopsis: "A deterministic parser with fused lexing"
+version: "dev"
+maintainer: "yallop@gmail.com"
+authors: ["Jeremy Yallop <yallop@gmail.com>"]
+homepage: "https://github.com/yallop/ocaml-flap"
+dev-repo: "git+http://github.com/yallop/ocaml-flap.git"
+bug-reports: "http://github.com/yallop/ocaml-flap/issues"
+license: "MIT"
+build: [[make]
+        [make "test" "bench"]  {with-test} ]
+depends: [
+   "dune" {build}
+
+   "letrec"
+   "reex"
+   "reex_match"
+   "ppx_deriving"
+
+   "ounit" {with-test}
+
+  "ocaml-variants"
+    {= "4.11.1+BER" | = "4.11.1+BER+flambda"}
+]

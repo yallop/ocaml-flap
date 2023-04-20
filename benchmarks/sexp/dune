@@ -1,0 +1,33 @@
+(executable
+ (name sexp_benchmark)
+ (modules Sexp_lexer  Sexp_lexer_menhir_code  Sexp_lexer_menhir_table
+          Sexp_normalized_lexer  Sexp_normalized_lexer_menhir_code  Sexp_normalized_lexer_menhir_table
+          Sexp_parser Sexp_parser_menhir_code Sexp_parser_menhir_table
+          Sexp_normalized_parser Sexp_normalized_parser_menhir_code Sexp_normalized_parser_menhir_table
+          Sexp_hand_normalized_parser Sexp_hand_normalized_lexer
+          Sexp_parts
+          Sexp_unstaged_combinator_parser Sexp_staged_combinator_parser Sexp_tokens_base Sexp_tokens Sexp_tokens Sexp_benchmark)
+ (flags (:standard "-open" "Codelib"))
+ (ocamlopt_flags (:standard "-O3"))
+ (libraries dynlink metaocaml asp flap sexp_grammar benchmarks_common core_bench menhirLib))
+
+(ocamlyacc sexp_parser)
+
+(menhir
+ (modules sexp_parser_menhir_code))
+
+(menhir
+ (modules sexp_parser_menhir_table)
+ (flags "--table"))
+
+(ocamlyacc sexp_normalized_parser)
+
+(menhir
+ (modules sexp_normalized_parser_menhir_code))
+
+(menhir
+ (modules sexp_normalized_parser_menhir_table)
+ (flags "--table"))
+
+(ocamllex sexp_lexer sexp_lexer_menhir_code sexp_lexer_menhir_table
+          sexp_normalized_lexer sexp_normalized_lexer_menhir_code sexp_normalized_lexer_menhir_table)
